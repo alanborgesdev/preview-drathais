@@ -1,24 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const TITLE = "Dra. Thaís Menezes | Cirurgiã-dentista em Sorocaba, Jardim Vergueiro";
+const DESC =
+  "Cirurgiã-dentista em Sorocaba. Cirurgias odontológicas particulares com horário exclusivo, sem sobreposição, e acompanhamento próximo do pré ao pós-operatório.";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <iframe
+      src="/site/index.html"
+      title="Site da Dra. Thaís Menezes, cirurgiã-dentista em Sorocaba"
+      style={{ position: "fixed", inset: 0, width: "100%", height: "100%", border: 0 }}
+    />
   );
 }
